@@ -1,0 +1,108 @@
+[
+  {
+    "line": 3,
+    "elements": [
+      {
+        "line": 5,
+        "name": "",
+        "description": "",
+        "type": "background",
+        "keyword": "Background",
+        "steps": [
+          {
+            "result": {
+              "duration": 9217386543,
+              "status": "passed"
+            },
+            "line": 6,
+            "name": "Accept the cookies",
+            "match": {
+              "location": "HomePageStep.acceptTheCookies()"
+            },
+            "keyword": "When "
+          }
+        ]
+      },
+      {
+        "start_timestamp": "2020-07-10T12:59:29.216Z",
+        "before": [
+          {
+            "result": {
+              "duration": 49982961094,
+              "status": "passed"
+            },
+            "match": {
+              "location": "ServiceHooks.initializeTest()"
+            }
+          }
+        ],
+        "line": 15,
+        "name": "Show menu header",
+        "description": "",
+        "id": "home-page-header;show-menu-header",
+        "after": [
+          {
+            "result": {
+              "duration": 2336303670,
+              "status": "passed"
+            },
+            "match": {
+              "location": "ServiceHooks.endTest(Scenario)"
+            }
+          }
+        ],
+        "type": "scenario",
+        "keyword": "Scenario",
+        "steps": [
+          {
+            "result": {
+              "duration": 9147731889,
+              "status": "passed"
+            },
+            "line": 16,
+            "name": "Click on menu header",
+            "match": {
+              "location": "HomePageStep.clickOnMenuHeader()"
+            },
+            "keyword": "When "
+          },
+          {
+            "result": {
+              "duration": 18209783797,
+              "status": "passed"
+            },
+            "line": 17,
+            "name": "Verify the menu options are present",
+            "match": {
+              "location": "HomePageStep.verifyTheMenuOptionsArePresent()"
+            },
+            "keyword": "Then "
+          }
+        ],
+        "tags": [
+          {
+            "name": "@HomePageHeader"
+          },
+          {
+            "name": "@TC_02-Menu"
+          }
+        ]
+      }
+    ],
+    "name": "Home page header",
+    "description": "",
+    "id": "home-page-header",
+    "keyword": "Feature",
+    "uri": "file:src/test/resources/Feature/HomePage.feature",
+    "tags": [
+      {
+        "name": "@HomePageHeader",
+        "type": "Tag",
+        "location": {
+          "line": 2,
+          "column": 1
+        }
+      }
+    ]
+  }
+]

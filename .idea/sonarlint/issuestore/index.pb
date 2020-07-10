@@ -1,0 +1,35 @@
+
+O
+src/property/browers.properties,d/f/dfbfa112661e4152c34ff3b104d095ac1bc9668a
+Y
+)src/property/DataDriverStaging.properties,9/9/99e2ea9d5a8397b754af4edd79de79244ea45d44
+K
+src/test/java/Util/Log.java,5/f/5fb89fae7b85fae5efa4b68471c4d189d84d9fa7
+7
+pom.xml,4/4/442292b8a7efeabbe4cc176709b833b1792140ec
+_
+/src/test/java/ClassBase/HomePageMobilePage.java,4/d/4d4f53f6f388557da70c8b883584e6fef1081806
+P
+ src/test/java/Util/TestBase.java,e/7/e75203084014cc95b40df8389825fb826c26519e
+]
+-src/test/java/Util/AppiumServerStartStop.java,6/9/69ab71bcc1e3a274a7adcd0dd6d0b80598a3fa04
+V
+&src/test/java/Util/PropertyHelper.java,e/b/ebf8e173b52029c2e764fe7db407862a4cddc36a
+X
+(src/test/java/Util/UtilityWebMobile.java,9/2/9225cc14886d54df047fcd0802393c32bf2830bc
+`
+0src/test/java/TestRunnerMobile/RunnerMobile.java,f/1/f10a49e5b6959fe770202173100a4b3834f363c8
+e
+5src/test/java/StepDefinitionsMobile/HomePageStep.java,0/f/0fdcf7d429636caf128105acd6bf7143cc8e6c29
+e
+5src/test/java/StepDefinitionsMobile/ServiceHooks.java,a/6/a6e184e720e48660d78d6c2ab5122e2762b91617
+k
+;src/test/java/StepDefinitionsMobile/HomePageFooterStep.java,3/d/3df06fa6253afd932bb202c5a1d9b7642213a42b
+r
+Bsrc/test/java/StepDefinitionsMobile/HomePageMainSearchBarStep.java,1/1/1128a62b40b585c631ba4c85c77ed30f665789fd
+q
+Asrc/test/java/StepDefinitionsMobile/TeeTimeListingMobileStep.java,f/9/f9dde18294bd26fcc8ffddc01e3cd9b9913d66b4
+d
+4src/test/java/ClassBase/CourseListingMobilePage.java,4/a/4afe109303076b446ff25d10d512aeee07be9e7f
+p
+@src/test/java/StepDefinitionsMobile/CourseListingMobileStep.java,2/a/2ade72edbea5964c5cfa7c4564170e0e5768ca1c
