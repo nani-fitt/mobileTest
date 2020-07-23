@@ -1,5 +1,5 @@
 @PostDeployValidationStaging
-@SignUp
+@SignUpXASzafs
 Feature: SignUp page
   Sign Up execution test cases
 
