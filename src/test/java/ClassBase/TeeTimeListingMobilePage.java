@@ -52,13 +52,13 @@ public class TeeTimeListingMobilePage {
     List<WebElement> courseMapView;
 
     @FindBy(css = "button[data-qa-file='ShortRatingsReviewsTeeTime']")
-    private WebElement reviewsLink;
+     WebElement reviewsLink;
 
     @FindBy(css = "p[data-qa-file='FavoriteTeeTime']")
-    private WebElement favoriteIcon;
+     WebElement favoriteIcon;
 
     @FindBy(css = "p[data-qa-file='PriceAlertTeeTime']")
-    private WebElement alertIcon;
+     WebElement alertIcon;
 
     @FindBy(css = "button[data-qa-file='ListHeaderFilters']")
     WebElement dealsOnly;
@@ -104,103 +104,106 @@ public class TeeTimeListingMobilePage {
         PageFactory.initElements(driver, this);
     }
 
-    public void ClickOnSearchButton() throws Exception {
-
-        WebDriverWait wait = new WebDriverWait(driver, 20);
+    public void clickOnSearchButton() throws Exception {
+        Thread.sleep(5000);
+        WebDriverWait wait = new WebDriverWait(driver, 80);
         wait.until(ExpectedConditions.visibilityOfAllElements(searchButton.get(0)));
         JavascriptExecutor executor = (JavascriptExecutor) driver;
         executor.executeScript("arguments[0].click();", searchButton.get(0));
         Thread.sleep(8000);
     }
 
-    public void VerifySortBy() throws Exception {
-        Thread.sleep(2000);
-        WebDriverWait wait = new WebDriverWait(driver, 20);
+    public void verifySortBy() throws Exception {
+        Thread.sleep(5000);
+        WebDriverWait wait = new WebDriverWait(driver, 50);
         wait.until(ExpectedConditions.visibilityOfAllElements(sortByFiltersMap.get(0)));
         Assert.assertTrue(sortByFiltersMap.get(0).isDisplayed());
     }
 
-    public void VerifyMap() throws Exception {
-        Thread.sleep(2000);
-        WebDriverWait wait = new WebDriverWait(driver, 20);
+    public void verifyMap() throws Exception {
+        Thread.sleep(5000);
+        WebDriverWait wait = new WebDriverWait(driver, 50);
         wait.until(ExpectedConditions.visibilityOfAllElements(sortByFiltersMap.get(1)));
         Assert.assertTrue(sortByFiltersMap.get(1).isDisplayed());
     }
 
-    public void VerifyNameAndAddress(String course, String addres) throws InterruptedException {
-
-        Thread.sleep(2000);
+    public void verifyNameAndAddress(String course, String addres) throws InterruptedException {
+        Thread.sleep(5000);
         Assert.assertEquals(dataCourse.getText(), course);
         Assert.assertEquals(addressCourse.get(0).getText(), addres);
     }
 
-    public void VerifyCourseInfo() throws Exception {
-        Thread.sleep(2000);
+    public void verifyCourseInfo() throws Exception {
+        Thread.sleep(5000);
         System.out.println("Text course" + " " + courseInfo.get(1).getText());
-        WebDriverWait wait = new WebDriverWait(driver, 20);
+        WebDriverWait wait = new WebDriverWait(driver, 50);
         wait.until(ExpectedConditions.textToBePresentInElement(courseInfo.get(1), "Course Info"));
 
     }
 
-    public void ClickOnCourseInfo() throws Exception {
-
-        WebDriverWait wait = new WebDriverWait(driver, 20);
+    public void clickOnCourseInfo() throws Exception {
+        Thread.sleep(5000);
+        WebDriverWait wait = new WebDriverWait(driver, 50);
         wait.until(ExpectedConditions.elementToBeClickable(courseInfo.get(1))).click();
         Thread.sleep(3000);
     }
 
-    public void VerifyGolferReviewsLink() throws InterruptedException {
-        Thread.sleep(2000);
+    public void verifyGolferReviewsLink() throws InterruptedException {
+        Thread.sleep(5000);
         reviewsLink.isDisplayed();
         Assert.assertTrue(reviewsLink.isDisplayed());
     }
 
-    public void VerifyFavoriteIcon() throws InterruptedException {
+    public void verifyFavoriteIcon() throws InterruptedException {
 
-        Thread.sleep(3000);
+        Thread.sleep(5000);
         boolean icon = favoriteIcon.isDisplayed();
         Assert.assertTrue(icon);
     }
 
-    public void ClickOnFavoriteIcon() throws Exception {
-
+    public void clickOnFavoriteIcon() throws Exception {
+        Thread.sleep(5000);
         String text = favoriteIcon.getText();
         System.out.println("Text" + " " + text);
-        WebDriverWait wait = new WebDriverWait(driver, 20);
+        WebDriverWait wait = new WebDriverWait(driver, 50);
         wait.until(ExpectedConditions.elementToBeClickable(favoriteIcon)).click();
         Thread.sleep(5000);
         System.out.println("Intoo");
 
     }
 
-    public void VerifyFavorite() {
-        WebDriverWait wait = new WebDriverWait(driver, 20);
+    public void verifyFavorite() throws InterruptedException {
+        Thread.sleep(5000);
+        WebDriverWait wait = new WebDriverWait(driver, 50);
         wait.until(ExpectedConditions.textToBePresentInElement(favoriteIcon, "Save"));
         String saved = favoriteIcon.getText();
         System.out.println("See" + " " + saved);
 
     }
 
-    public void VerifyAlertIcon() throws InterruptedException {
-        Thread.sleep(3000);
+    public void verifyAlertIcon() throws InterruptedException {
+        Thread.sleep(5000);
         Assert.assertTrue(alertIcon.isDisplayed());
     }
 
-    public void ClickOnAlertIcon() throws Exception {
-        WebDriverWait wait = new WebDriverWait(driver, 20);
+    public void clickOnAlertIcon() throws Exception {
+        Thread.sleep(5000);
+        WebDriverWait wait = new WebDriverWait(driver, 50);
         wait.until(ExpectedConditions.elementToBeClickable(alertIcon)).click();
         Thread.sleep(4000);
     }
 
-    public void ClickOnDeals() throws Exception {
-        WebDriverWait wait = new WebDriverWait(driver, 20);
+    public void clickOnDeals() throws Exception {
+        Thread.sleep(5000);
+        WebDriverWait wait = new WebDriverWait(driver, 50);
         wait.until(ExpectedConditions.elementToBeClickable(dealsOnly)).click();
         Thread.sleep(3000);
     }
 
 
-    public void ClickOnGolferReviewsLink() throws Exception {
-        WebDriverWait wait = new WebDriverWait(driver, 20);
+    public void clickOnGolferReviewsLink() throws Exception {
+        Thread.sleep(5000);
+        WebDriverWait wait = new WebDriverWait(driver, 50);
         wait.until(ExpectedConditions.elementToBeClickable(reviewsLink)).click();
         Thread.sleep(2000);
 
@@ -209,20 +212,20 @@ public class TeeTimeListingMobilePage {
     public void MadeAnotherSearchPlayers(String players) throws Exception {
 
         HomePageMeanSearchMobile page = new HomePageMeanSearchMobile(driver);
-        page.ClickOnPlayers();
+        page.clickOnPlayers();
      //   page.SelectPlayers(players);
-        Thread.sleep(2000);
+        Thread.sleep(5000);
     }
 
     public void MadeAnotherSearchHoles(String holes) throws Exception {
 
         HomePageMeanSearchMobile page = new HomePageMeanSearchMobile(driver);
-        page.ClickOnHoles();
+        page.clickOnHoles();
        // page.SelectPlayers(holes);
-        Thread.sleep(2000);
+        Thread.sleep(5000);
     }
 
-    public void VerifyResultForTheSearchPlayers(String players) throws Exception {
+    public void verifyResultForTheSearchPlayers(String players) throws Exception {
         UtilityWebMobile page = new UtilityWebMobile();
         if (teeTime.size() > 1) {
             if (players.contains("Four") || players.contains("4")) {
@@ -233,15 +236,15 @@ public class TeeTimeListingMobilePage {
 
                 System.out.println("Sublist" + " " + playersList.size());
 
-                for (int i = 0; i < playersList.size(); i++) {
-                    System.out.println("Print---------------" + " " + playersList.get(i).getText());
+                for (WebElement webElement : playersList) {
+                    System.out.println("Print---------------" + " " + webElement.getText());
 
-                    if (playersList.get(i).getText().equalsIgnoreCase("1-3")
-                            || playersList.get(i).getText().equalsIgnoreCase("1-2")
-                            || playersList.get(i).getText().equalsIgnoreCase("1")) {
+                    if (webElement.getText().equalsIgnoreCase("1-3")
+                            || webElement.getText().equalsIgnoreCase("1-2")
+                            || webElement.getText().equalsIgnoreCase("1")) {
 
                         System.out.println("The number of players is incorrect");
-                        Assert.assertEquals(playersList.get(i).getText(), "1-4");
+                        Assert.assertEquals(webElement.getText(), "1-4");
                         break;
 
                     }
@@ -253,15 +256,15 @@ public class TeeTimeListingMobilePage {
                 System.out.println("Size list" + " " + teeTime.size());
 
                 System.out.println("Sublist" + " " + playersList.size());
-                for (int i = 0; i < playersList.size(); i++) {
+                for (WebElement webElement : playersList) {
 
-                    System.out.println("Print---------------" + " " + playersList.get(i).getText());
+                    System.out.println("Print---------------" + " " + webElement.getText());
 
-                    if (playersList.get(i).getText().equalsIgnoreCase("1-2")
-                            || playersList.get(i).getText().equalsIgnoreCase("1")) {
+                    if (webElement.getText().equalsIgnoreCase("1-2")
+                            || webElement.getText().equalsIgnoreCase("1")) {
 
                         System.out.println("The number of players is incorrect");
-                        Assert.assertEquals(playersList.get(i).getText(), "1-3");
+                        Assert.assertEquals(webElement.getText(), "1-3");
                         break;
 
                     }
@@ -272,17 +275,17 @@ public class TeeTimeListingMobilePage {
                 Thread.sleep(4000);
                 page.ScrollFinalPage(dealsOnly);
                 System.out.println("Size list" + " " + teeTime.size());
-                for (int i = 0; i < playersList.size(); i++) {
+                for (WebElement webElement : playersList) {
 
-                    System.out.println("Print---------------" + " " + playersList.get(i).getText());
+                    System.out.println("Print---------------" + " " + webElement.getText());
 
-                    if (playersList.get(i).getText().equalsIgnoreCase("1-3")
-                            || playersList.get(i).getText().equalsIgnoreCase("1-2")
-                            || playersList.get(i).getText().equalsIgnoreCase("1-4")
-                            || playersList.get(i).getText().equalsIgnoreCase("1")) {
+                    if (webElement.getText().equalsIgnoreCase("1-3")
+                            || webElement.getText().equalsIgnoreCase("1-2")
+                            || webElement.getText().equalsIgnoreCase("1-4")
+                            || webElement.getText().equalsIgnoreCase("1")) {
 
                         System.out.println("The number of players is incorrect");
-                        Assert.assertEquals(playersList.get(i).getText(), "1-5");
+                        Assert.assertEquals(webElement.getText(), "1-5");
                         break;
                     }
                 }
@@ -293,18 +296,18 @@ public class TeeTimeListingMobilePage {
                 System.out.println("Size list" + " " + teeTime.size());
                 System.out.println("Sublist" + " " + playersList.size());
 
-                for (int i = 0; i < playersList.size(); i++) {
+                for (WebElement webElement : playersList) {
 
-                    System.out.println("Print---------------" + " " + playersList.get(i).getText());
+                    System.out.println("Print---------------" + " " + webElement.getText());
 
-                    if (playersList.get(i).getText().equalsIgnoreCase("1-3")
-                            || playersList.get(i).getText().equalsIgnoreCase("1-2")
-                            || playersList.get(i).getText().equalsIgnoreCase("1-4")
-                            || playersList.get(i).getText().equalsIgnoreCase("1-5")
-                            || playersList.get(i).getText().equalsIgnoreCase("1")) {
+                    if (webElement.getText().equalsIgnoreCase("1-3")
+                            || webElement.getText().equalsIgnoreCase("1-2")
+                            || webElement.getText().equalsIgnoreCase("1-4")
+                            || webElement.getText().equalsIgnoreCase("1-5")
+                            || webElement.getText().equalsIgnoreCase("1")) {
 
                         System.out.println("The number of players is incorrect");
-                        Assert.assertEquals(playersList.get(i).getText(), "1-6");
+                        Assert.assertEquals(webElement.getText(), "1-6");
                         break;
                     }
                 }
@@ -314,7 +317,7 @@ public class TeeTimeListingMobilePage {
                     "There are currently no results for your search. Try adjusting your filters, then search again.");
     }
 
-    public void VerifyResultForTheSearchHoles(String holes) throws Exception {
+    public void verifyResultForTheSearchHoles(String holes) throws Exception {
 
         UtilityWebMobile page = new UtilityWebMobile();
         if (teeTime.size() > 1) {
@@ -325,14 +328,14 @@ public class TeeTimeListingMobilePage {
                 System.out.println("Size of the list" + " " + teeTime.size());
                 System.out.println("Sublist" + " " + holesList.size());
 
-                for (int i = 0; i < holesList.size(); i++) {
+                for (WebElement webElement : holesList) {
 
-                    System.out.println("Element -------------" + " " + holesList.get(i).getText());
+                    System.out.println("Element -------------" + " " + webElement.getText());
 
-                    if (holesList.get(i).getText().contains("18")) {
+                    if (webElement.getText().contains("18")) {
 
                         System.out.println("The number of players is incorrect");
-                        Assert.assertEquals(holesList.get(i).getText(), "9");
+                        Assert.assertEquals(webElement.getText(), "9");
                         break;
 
                     }
@@ -346,14 +349,14 @@ public class TeeTimeListingMobilePage {
                     System.out.println("Size of the list" + " " + teeTime.size());
                     System.out.println("Sublist" + " " + holesList.size());
 
-                    for (int i = 0; i < holesList.size(); i++) {
+                    for (WebElement webElement : holesList) {
 
-                        System.out.println("Element -------------" + " " + holesList.get(i).getText());
+                        System.out.println("Element -------------" + " " + webElement.getText());
 
-                        if (holesList.get(i).getText().contains("9")) {
+                        if (webElement.getText().contains("9")) {
 
                             System.out.println("The number of players is incorrect");
-                            Assert.assertEquals(holesList.get(i).getText(), "18");
+                            Assert.assertEquals(webElement.getText(), "18");
                             break;
                         }
                     }
@@ -365,24 +368,24 @@ public class TeeTimeListingMobilePage {
 
     }
 
-    public void VerifyNextIconIsPresent() {
-
-        WebDriverWait wait = new WebDriverWait(driver, 20);
+    public void verifyNextIconIsPresent() throws InterruptedException {
+        Thread.sleep(5000);
+        WebDriverWait wait = new WebDriverWait(driver, 50);
         wait.until(ExpectedConditions.visibilityOfAllElements(nextPreviousIcon.get(2)));
         nextPreviousIcon.get(2).isDisplayed();
     }
 
-    public void ClickOnNextIcon() throws Exception {
-
+    public void clickOnNextIcon() throws Exception {
+        Thread.sleep(5000);
         String check = date.getText();
-        WebDriverWait wait = new WebDriverWait(driver, 10);
+        WebDriverWait wait = new WebDriverWait(driver, 50);
         wait.until(ExpectedConditions.elementToBeClickable(nextPreviousIcon.get(2))).click();
         Thread.sleep(2000);
         String check1 = date.getText();
         Assert.assertNotEquals(check, check1);
     }
 
-    public void ClickOnPreviousIcon() throws Exception {
+    public void clickOnPreviousIcon() throws Exception {
 
         String check = date.getText();
         System.out.println("Day of the system" + " " + check);
@@ -421,16 +424,16 @@ public class TeeTimeListingMobilePage {
 
     }
 
-    public void VerifyPreviousIconIsPresent() {
-
-        WebDriverWait wait = new WebDriverWait(driver, 20);
+    public void verifyPreviousIconIsPresent() throws InterruptedException {
+        Thread.sleep(5000);
+        WebDriverWait wait = new WebDriverWait(driver, 80);
         wait.until(ExpectedConditions.visibilityOfAllElements(nextPreviousIcon.get(0)));
         nextPreviousIcon.get(0).isDisplayed();
     }
 
 
-    public void VerifyFilterByIsPresent() {
-
+    public void verifyFilterByIsPresent() throws InterruptedException {
+        Thread.sleep(5000);
         Assert.assertTrue(filterBy.isDisplayed());
         Assert.assertEquals(filterBy.getText(), "Filters");
         Assert.assertEquals(filtersAll.get(1).getText(), "Players");
@@ -441,7 +444,7 @@ public class TeeTimeListingMobilePage {
         Assert.assertEquals(filtersAll.get(6).getText(), "Rate Type");
     }
 
-    public void VerifyResultForDeals() throws Exception {
+    public void verifyResultForDeals() throws Exception {
         UtilityWebMobile page = new UtilityWebMobile();
         if (teeTime.size() > 1) {
             page.ScrollFinalPage(linkSection);
@@ -458,9 +461,9 @@ public class TeeTimeListingMobilePage {
                 Assert.assertEquals(deals, "Deal");
 
             } else {
-                for (int i = 0; i < teeTime.size(); i++) {
+                for (WebElement webElement : teeTime) {
 
-                    String deals = teeTime.get(i)
+                    String deals = webElement
                             .findElements(
                                     By.cssSelector("p[class='pr-sm text-xs text-dark-grey leading-large tracking-fastened']"))
                             .get(0).getText();
@@ -475,14 +478,15 @@ public class TeeTimeListingMobilePage {
 
     }
 
-    public void ClickBackToCourses() throws Exception {
-
-        WebDriverWait wait = new WebDriverWait(driver, 10);
+    public void clickBackToCourses() throws Exception {
+         Thread.sleep(5000);
+        WebDriverWait wait = new WebDriverWait(driver, 50);
         wait.until(ExpectedConditions.elementToBeClickable(backCourses)).click();
         Thread.sleep(4000);
     }
 
-    public void VerifyBackToCourses() throws Exception {
+    public void verifyBackToCourses() throws Exception {
+        Thread.sleep(5000);
         Assert.assertEquals(backCourses.getText(), "Back to Courses");
     }
 

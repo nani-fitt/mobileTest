@@ -20,21 +20,21 @@ public class HomePageMainSearchBarStep extends TestBase {
 	@Then("Show current location")
 	public void show_current_location() throws Exception {
 		Log.info("******SHOW CURRENT LOCATION*******");
-		page.CheckLocationEnable();
+		page.checkLocationEnable();
 
 	}
 
 	@Then("Enter current location")
 	public void enter_a_course() throws Exception {
 		Log.info("******ENTER CURRENT LOCATION*******");
-		page.MadeSearchCityorCourse("Current Location");
+		page.madeSearchCityorCourse("Current Location");
 
 	}
 
 	@Then("Show a error message for current location")
-	public void show_a_error_message() {
+	public void show_a_error_message() throws InterruptedException {
 		Log.info("******SHOW THE ERROR MESSAGE*******");
-        page.CurrentLocationMessage();
+        page.currentLocationMessage();
 
 	}
 
@@ -43,7 +43,7 @@ public class HomePageMainSearchBarStep extends TestBase {
 		Log.info("******CHECK THE SUGGESTION COURSE*******");
 		List<String> course = dataTable.asList();
 		String focus1= p.getProperty(course.get(0));
-		page.MadeSearchCityorCourse(focus1);
+		page.madeSearchCityorCourse(focus1);
 
 	}
 
@@ -52,7 +52,7 @@ public class HomePageMainSearchBarStep extends TestBase {
 		Log.info("******SELECT THE COURSE*******");
 		List<String> data = dataTable.asList();
 		String auto= p.getProperty(data.get(0));
-		page.AutoSuggestion(auto);
+		page.autoSuggestion(auto);
 	}
 
 	@When("Enter a city in the search field")
@@ -60,7 +60,7 @@ public class HomePageMainSearchBarStep extends TestBase {
 		Log.info("******CHECK THE SUGGESTION CITY*******");
 		List<String> city = dataTable.asList();
 		String auto= p.getProperty(city.get(0));
-		page.MadeSearchCityorCourse(auto);
+		page.madeSearchCityorCourse(auto);
 
 	}
 
@@ -69,13 +69,13 @@ public class HomePageMainSearchBarStep extends TestBase {
 		Log.info("******SELECT THE CITY*******");
 		List<String> data = dataTable.asList();
 		String auto= p.getProperty(data.get(0));
-		page.AutoSuggestion(auto);
+		page.autoSuggestion(auto);
 	}
 
 	@When("Verify the current date")
 	public void verify_the_current_date() throws Exception {
 		Log.info("******CLICK ON CALENDAR BUTTON*******");
-		page.FechaMainSearch();
+		page.fechaMainSearch();
 	}
 
 	@Then("Select one day")
@@ -83,8 +83,8 @@ public class HomePageMainSearchBarStep extends TestBase {
 		Log.info("******SELECT DATE*******");
 		List<Map<String, String>> list = dataTable.asMaps(String.class, String.class);
 		for (Map<String, String> data : list) {
-			String fecha= p.getProperty(data.get("Fecha"));
-			page.SelectDate(fecha);
+			String fecha= p.getProperty(data.get("Date"));
+			page.selectDate(fecha);
 		}
 	}
 
@@ -93,14 +93,14 @@ public class HomePageMainSearchBarStep extends TestBase {
 		Log.info("******ENTER INVALID CITY OR COURSE*******");
 		List<String> city = dataTable.asList();
 		String cit= p.getProperty(city.get(0));
-		page.EnterInvalidData(cit);
+		page.enterInvalidData(cit);
 
 	}
 
 	@Then("Show the error message")
 	public void showMessage() throws Exception {
 		Log.info("******CHECK THE ERROR MESSAGE*******");
-		page.CheckMessage();
+		page.checkMessage();
 
 	}
 
@@ -109,44 +109,48 @@ public class HomePageMainSearchBarStep extends TestBase {
 		Log.info("******ENTER INVALID ZIP CODE*******");
 		List<String> zipcode = dataTable.asList();
 		String zip= p.getProperty(zipcode.get(0));
-		page.EnterInvalidData(zip);
+		page.enterInvalidData(zip);
 
 	}
 
 	@Then("Show zip code message error")
 	public void showMessageZipCode() throws Exception {
 		Log.info("******SHOW THE ERROR MESSAGE WHEN THE ZIP CODE IS INVALID*******");
-		page.CheckInvalidZipCodeMessage();
+		page.checkInvalidZipCodeMessage();
 
 	}
 
 	@Then("Select Done button")
 	public void selectDoneButton() throws Exception {
 		Log.info("******SELECT DONE BUTTON*******");
-		page.ClickOnDoneButton();
+		page.clickOnDoneButton();
 	}
 
 	@Then("Select the option Players")
 	public void selectTheOptionPlayers() throws Exception {
 		Log.info("******SELECT PLAYERS OPTION*******");
-		page.ClickOnPlayers();
+		page.clickOnPlayers();
 	}
 
     @When("Select number of Players desired")
     public void selectNumberOfPlayersDesired(DataTable data) throws Exception {
 		Log.info("******SELECT PLAYERS DESIRED*******");
-		page.SelectFiltersPlayersMax("3");
+		Properties p= PropertyHelper.loadData();
+		String numberPlayers= p.getProperty("PlayersFilters");
+		page.selectFiltersPlayersMax(numberPlayers);
     }
 
     @And("Click on holes option")
     public void clickOnHolesOption() throws Exception {
 		Log.info("******SELECT HOLES OPTION*******");
-		page.ClickOnHoles();
+		page.clickOnHoles();
     }
 
     @And("Select the option Holes")
     public void selectTheOptionHoles(DataTable data) throws InterruptedException {
 		Log.info("*******SELECT NUMBER HOLES DESIRED*******");
-		page.SelectCartHoles("18");
+		Properties p= PropertyHelper.loadData();
+		String numberHoles= p.getProperty("NumberHole");
+		page.selectCartHoles(numberHoles);
     }
 }

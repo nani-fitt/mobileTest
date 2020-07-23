@@ -42,8 +42,8 @@ public class CourseListingMobilePage {
 	}
 
 
-	public void VerifyTheResultForDealsCourses() throws Exception {
-
+	public void verifyTheResultForDealsCourses() throws Exception {
+        Thread.sleep(4000);
 		UtilityWebMobile page= new UtilityWebMobile();
 		TeeTimeListingMobilePage teeTime= new TeeTimeListingMobilePage(driver);
 		
@@ -76,23 +76,23 @@ public class CourseListingMobilePage {
 
 	}
 
-	public void ClickOnMapView() throws Exception {
+	public void clickOnMapView() throws Exception {
 		TeeTimeListingMobilePage page = new TeeTimeListingMobilePage(driver);
-		WebDriverWait wait = new WebDriverWait(driver, 20);
+		WebDriverWait wait = new WebDriverWait(driver, 80);
 		wait.until(ExpectedConditions.elementToBeClickable(page.sortByFiltersMap.get(1))).click();
 		Thread.sleep(3000);
 	}
 
-	public void ErrorMessageLocationDisable() {
+	public void errorMessageLocationDisable() {
 		
 		Assert.assertEquals(messageTeeTimeEmpty.get(1).getText(),
 				"There are currently no results for your search. Try adjusting your filters, then search again.");
 
 	}
 
-	public void VerifyMaxView() throws Exception {
-
-		WebDriverWait wait = new WebDriverWait(driver, 20);
+	public void verifyMaxView() throws Exception {
+        Thread.sleep(6000);
+		WebDriverWait wait = new WebDriverWait(driver, 80);
 		wait.until(ExpectedConditions.elementToBeClickable(maxViewMap.get(0))).click();
 		Thread.sleep(2000);
 		Actions act = new Actions(driver);
@@ -100,35 +100,37 @@ public class CourseListingMobilePage {
 		Thread.sleep(2000);
 	}
 
-	public void VerifyMinView() throws Exception {
-
-		WebDriverWait wait = new WebDriverWait(driver, 20);
+	public void verifyMinView() throws Exception {
+        Thread.sleep(6000);
+		WebDriverWait wait = new WebDriverWait(driver, 80);
 		wait.until(ExpectedConditions.elementToBeClickable(maxViewMap.get(1))).click();
 		Thread.sleep(2000);
 		Actions act = new Actions(driver);
 		act.doubleClick(maxViewMap.get(1)).build().perform();
 	}
 
-	public void VerifyTheData() throws InterruptedException {
-		Thread.sleep(3000);
+	public void verifyTheData() throws InterruptedException {
+		Thread.sleep(6000);
 		Assert.assertTrue(nameCourseHeader.get(0).isDisplayed());
 		Assert.assertTrue(nameCourseHeader.get(1).isDisplayed());
 	}
 
-	public void SelectCourseMap() throws InterruptedException {
+	public void selectCourseMap() throws InterruptedException {
+		Thread.sleep(6000);
 		TeeTimeListingMobilePage page= new TeeTimeListingMobilePage(driver);
-		WebDriverWait wait = new WebDriverWait(driver, 20);
+		WebDriverWait wait = new WebDriverWait(driver, 80);
 		wait.until(ExpectedConditions.elementToBeClickable(page.courseMapView.get(0))).click();
 		Thread.sleep(4000);
 	}
-	public void ClickOnSearchField() throws InterruptedException {
-		WebDriverWait wait = new WebDriverWait(driver, 20);
+	public void clickOnSearchField() throws InterruptedException {
+		Thread.sleep(6000);
+		WebDriverWait wait = new WebDriverWait(driver, 80);
 		wait.until(ExpectedConditions.elementToBeClickable(searchButtonCourse)).click();
 		Thread.sleep(3000);
 	}
 
-	public void VerifyCourseList()
-	{
+	public void verifyCourseList() throws InterruptedException {
+		Thread.sleep(5000);
 		if(!coursesList.isEmpty())
 		{
 			System.out.println("Exist courses for the search made it"+ " "+ coursesList.size());
