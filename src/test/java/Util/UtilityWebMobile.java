@@ -11,7 +11,6 @@ import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebDriverException;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
@@ -22,7 +21,7 @@ import com.google.common.base.Function;
 
 public class UtilityWebMobile {
 
-	AppiumDriver<MobileElement> driver;
+	AppiumDriver<WebElement> driver;
 	JavascriptExecutor ex;
 	private static final int PAGE_WAIT_TIMEOUT_IN_SECONDS = 100;
 

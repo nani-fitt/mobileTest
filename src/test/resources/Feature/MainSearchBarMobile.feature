@@ -13,9 +13,9 @@ Feature: Main Search Bar
   @TC-02-SuggestionCourse
   Scenario: Search a course
     When Enter a course in the search field
-      | CourseNameAutoT |
+      | CourseNameAutoA |
    Then Show the courses list suggestions
-      | CourseAutoT|
+      | CourseAutoA|
 
   @TC-03SuggestionCity
   Scenario: Search by a city

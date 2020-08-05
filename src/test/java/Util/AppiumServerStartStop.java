@@ -20,7 +20,7 @@ public class AppiumServerStartStop {
 
 	public static void appiumStart() throws Exception {
 
-			Log.info("**** STARTING APIUM SERVER ***********");
+		//	Log.info("**** STARTING APIUM SERVER ***********");
 			if (osName.contains("Mac")) {
 				AppiumServiceBuilder serviceBuilder = new AppiumServiceBuilder();
 				// Use any port, in case the default 4723 is already taken (maybe by another
@@ -63,9 +63,9 @@ public class AppiumServerStartStop {
 				appiumService.start();
 				Thread.sleep(25000);
 				service_url = appiumService.getUrl().toString();
-				Log.info("Server started on Port - " + port);
+			//	Log.info("Server started on Port - " + port);
 			} catch (Exception e) {
-				Log.info("Appium Server already running on Port - " + port);
+			//	Log.info("Appium Server already running on Port - " + port);
 			}
 			
 	}
@@ -99,15 +99,15 @@ public class AppiumServerStartStop {
 
 	public static void appiumStop() throws Exception {
 
-		Log.info("**** STOPING APIUM SERVER ***********");
+		//Log.info("**** STOPING APIUM SERVER ***********");
 
 		try {
-				Log.info("Trying to stop the server...");
+			//	Log.info("Trying to stop the server...");
 				appiumService.stop();
-				Log.info("Success, Server stopped.");
+			//	Log.info("Success, Server stopped.");
 			
 		} catch (Exception e) {
-			Log.info("Appium server could not be stopped.");
+		//	Log.info("Appium server could not be stopped.");
 		}
 
 	}

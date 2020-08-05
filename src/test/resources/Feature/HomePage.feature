@@ -17,6 +17,12 @@ Feature: Home page header
     Then Verify the menu options are present
 
 
+  @TC_03-MenuFooter
+  Scenario: Show footer signIn
+    When Click on my account
+    Then Select Sign In option
+
+
 
 
 

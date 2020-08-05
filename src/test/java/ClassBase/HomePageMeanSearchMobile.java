@@ -8,10 +8,7 @@ import java.util.concurrent.TimeUnit;
 
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileElement;
-import org.openqa.selenium.By;
-import org.openqa.selenium.Keys;
-import org.openqa.selenium.NoSuchElementException;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -22,7 +19,7 @@ import org.testng.asserts.SoftAssert;
 
 public class HomePageMeanSearchMobile {
 
-	AppiumDriver<MobileElement> driver;
+	AppiumDriver<WebElement> driver;
 	private String today;
 
 	@FindBy(xpath = "//input[@placeholder=\"Select any course, city, or zip\"]")
@@ -40,7 +37,7 @@ public class HomePageMeanSearchMobile {
 	@FindBy(css = "span[data-qa-file='CustomHeader']")
 	 List<WebElement> mes;
 
-	@FindBy(css = "span[data-qa-file='FilterNumber']")
+	@FindBy(css = "div[data-qa-file='FilterNumber']")
 	WebElement playersNumber;
 
 	@FindBy(css = "div[class='react-datepicker__week'] div")
@@ -52,8 +49,14 @@ public class HomePageMeanSearchMobile {
 	@FindBy(id = "plus-button")
 	WebElement nextMounth;
 
-	@FindBy(id = "plus-button")
+	@FindBy(id = "min-button")
 	WebElement previuosMounth;
+
+	@FindBy(id = "plus-button")
+	WebElement maxPlayers;
+
+	@FindBy(id = "minus-button")
+	WebElement lessPlayers;
 
 	@FindBy(css = "p[data-qa-file= 'SearchDropDown']")
 	 List<WebElement> players;
@@ -71,7 +74,7 @@ public class HomePageMeanSearchMobile {
 	List<WebElement> dateList;
 
 
-	public HomePageMeanSearchMobile(AppiumDriver<MobileElement> driver) {
+	public HomePageMeanSearchMobile(AppiumDriver<WebElement> driver) {
 		this.driver = driver;
 		PageFactory.initElements(driver, this);
 	}
@@ -237,6 +240,9 @@ public class HomePageMeanSearchMobile {
 		Thread.sleep(5000);
 		TeeTimeListingMobilePage page= new TeeTimeListingMobilePage(driver);
 		WebDriverWait wait = new WebDriverWait(driver, 80);
+		if(page.searchButton.size()==4)
+		wait.until(ExpectedConditions.elementToBeClickable(page.searchButton.get(3))).click();
+		else
 		wait.until(ExpectedConditions.elementToBeClickable(page.searchButton.get(2))).click();
 		Thread.sleep(3000);
 	}
@@ -257,29 +263,29 @@ public class HomePageMeanSearchMobile {
 
 	public void selectFiltersPlayersMax(String number) throws Exception {
 		String numberPresent = playersNumber.getText();
+		System.out.println("numberPresent filters= " + numberPresent);
+		WebDriverWait wait = new WebDriverWait(driver, 50);
 		if(numberPresent.equals("Any") && (!number.equals("Any"))) {
-			WebDriverWait wait = new WebDriverWait(driver, 50);
-			wait.until(ExpectedConditions.elementToBeClickable(maxAndMinIcon.get(1))).click();
+			wait.until(ExpectedConditions.elementToBeClickable(maxPlayers)).click();
 			Thread.sleep(3000);
-
+		}
 			String[] playersNum = playersNumber.getText().split(" ");
 			int numberUser = Integer.parseInt(number);
 			int numberPres = Integer.parseInt(playersNum[0]);
 			System.out.println("Number players" + " " + playersNum[0]);
 			while (!(numberUser == numberPres)) {
 				if (numberUser > numberPres) {
-					wait.until(ExpectedConditions.elementToBeClickable(maxAndMinIcon.get(1))).click();
+					wait.until(ExpectedConditions.elementToBeClickable(maxPlayers)).click();
 					Thread.sleep(3000);
 					String[] players = playersNumber.getText().split(" ");
 					numberPres = Integer.parseInt(players[0]);
 				} else {
-					wait.until(ExpectedConditions.elementToBeClickable(maxAndMinIcon.get(0))).click();
+					wait.until(ExpectedConditions.elementToBeClickable(lessPlayers)).click();
 					Thread.sleep(3000);
 					String[] players = playersNumber.getText().split(" ");
 					numberPres = Integer.parseInt(players[0]);
 				}
 			}
-		}
 		String [] numberText = playersNumber.getText().split(" ");
 		Assert.assertEquals(numberText[0], number);
 

@@ -4,7 +4,6 @@ package ClassBase;
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileElement;
 import org.openqa.selenium.*;
-import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -17,13 +16,13 @@ import java.util.concurrent.TimeUnit;
 
 public class SignInpage {
 
-    AppiumDriver<MobileElement> driver;
+    AppiumDriver<WebElement> driver;
 
-    @FindBy(css = "div[id='sign-in']")
-    WebElement signIn;
+    @FindBy(css = "div[class='py-2']")
+    List<WebElement> signIn;
 
-    @FindBy(css = "a[class*='ml-1 font-black text-orangey-red focus:outline-none']")
-    WebElement signUp;
+    @FindBy(css = "a[class='ml-1 font-black text-orangey-red focus:outline-none']")
+    List<WebElement> signUp;
 
     @FindBy(css = "h1[data-qa-file='Login']")
     WebElement signInText;
@@ -46,10 +45,10 @@ public class SignInpage {
     @FindBy(name = "password")
     WebElement passField;
 
-    @FindBy(css = "p[class*='pt-2 pl-2 text-red text-tiny leading-common2']")
+    @FindBy(css = "p[class='pt-2 pl-2 text-red text-tiny leading-common2']")
     WebElement invalidTextPass;
 
-    @FindBy(css = "button[data-qa-file='TextInput']")
+    @FindBy(css = "button[id='internal-button-sign-up-password']")
     WebElement showField;
 
     @FindBy(css = "a[class='self-center text-little font-medium text-blood-orange leading-natural -tracking-0-22 focus:outline-none']")
@@ -70,7 +69,7 @@ public class SignInpage {
     @FindBy(css = "h1[data-qa-file='SignUp']")
     WebElement SignUpButton;
 
-    @FindBy(css = "button[id='sign-out']")
+    @FindBy(css = "div[id='sign-out']")
     WebElement signOut;
 
     @FindBy(css = "button[data-qa-file='SocialSignIn']")
@@ -82,16 +81,16 @@ public class SignInpage {
     @FindBy(css = "p[class='text-coral font-bold text-little leading-large text-left']")
     WebElement passGoogleUsedAccount;
 
-    @FindBy(id = "email")
+    @FindBy(name = "email")
     WebElement emailFacebook;
 
-    @FindBy(id = "pass")
+    @FindBy(name = "pass")
     WebElement passFacebook;
 
     @FindBy(name = "login")
     WebElement loginFacebook;
 
-    @FindBy(css = "span[class*='RveJvd snByac']")
+    @FindBy(css = "button[class='VfPpkd-LgbsSe VfPpkd-LgbsSe-OWXEXe-k8QpJ VfPpkd-LgbsSe-OWXEXe-dgl2Hf nCP5yc AjY5Oe DuMIQc qIypjc TrZEUc']")
     WebElement siguienteButton;
 
     @FindBy(id = "error_box")
@@ -103,23 +102,37 @@ public class SignInpage {
     @FindBy(css = "div[id='bookings']")
     WebElement bookingMenu;
 
+    @FindBy(css = "input[id='account_name_text_field']")
+    WebElement emailApple;
 
-    public SignInpage(AppiumDriver<MobileElement> driver) {
+    @FindBy(css = "button[id='sign-in']")
+    WebElement nextAppleButton;
+
+    @FindBy(css = "input[id='password_text_field']")
+    WebElement passApple;
+
+    @FindBy(css = "button[class='button button-primary last nav-action  pull-right weight-medium']")
+    WebElement continueApple;
+
+
+    public SignInpage(AppiumDriver<WebElement> driver) {
         this.driver = driver;
         PageFactory.initElements(driver, this);
     }
 
 
     public void clickOnSigIn() throws InterruptedException {
-        Thread.sleep(8000);
+        Thread.sleep(5000);
         driver.manage().timeouts().implicitlyWait(80, TimeUnit.SECONDS);
-        signIn.click();
+        JavascriptExecutor executor = (JavascriptExecutor) driver;
+        executor.executeScript("arguments[0].click();", signIn.get(2));
+        signIn.get(2).click();
         Thread.sleep(5000);
     }
     public void clickOnSigUnLink() throws InterruptedException {
         Thread.sleep(8000);
         driver.manage().timeouts().implicitlyWait(80, TimeUnit.SECONDS);
-        signUp.click();
+        signUp.get(1).click();
         Thread.sleep(5000);
     }
 
@@ -149,20 +162,16 @@ public class SignInpage {
 
     public void verifyKeepLogin() throws InterruptedException {
         Thread.sleep(4000);
+        driver.manage().timeouts().implicitlyWait(80,TimeUnit.SECONDS);
         Assert.assertEquals(labelKeepLogin.getText(), "Keep me logged in");
-        Thread.sleep(3000);
-        Point p = forgotPassword.getLocation();
-        System.out.println("Seee location" + " " + p);
-        Actions act = new Actions(driver);
-        act.moveByOffset(792, 502).click().build().perform();
         Thread.sleep(4000);
     }
 
     public void enterIncorrectEmail(String email) throws Exception {
         Thread.sleep(4000);
         emailField.sendKeys(email);
-        Thread.sleep(2000);
-        driver.findElement(By.xpath("//div[@class='w-full font-avenir']")).click();
+        Thread.sleep(3000);
+        driver.findElement(By.cssSelector("h1[class='text-6 font-bold text-navy leading-natural -tracking-0-6']")).click();
 
     }
 
@@ -184,6 +193,7 @@ public class SignInpage {
     public void verifyPasswordInvalidText() throws Exception {
         Thread.sleep(5000);
         passField.click();
+        emailField.click();
         driver.manage().timeouts().implicitlyWait(80, TimeUnit.SECONDS);
         Assert.assertEquals(textField.get(2).getText(), "Please enter a password");
         Thread.sleep(2000);
@@ -429,6 +439,37 @@ public class SignInpage {
         Assert.assertTrue(passGoogleUsedAccount.isDisplayed());
     }
 
+    public void clickOnAppleButton(String email, String pass) throws Exception {
+        Thread.sleep(5000);
+        String browersActual = driver.getWindowHandle();
+        System.out.println("Actual browser" + " " + browersActual);
+        driver.manage().timeouts().implicitlyWait(80, TimeUnit.SECONDS);
+        googleButton.get(2).click();
+        Set<String> allWindowHandles = driver.getWindowHandles();
+        Thread.sleep(2000);
+        System.out.println("size windows"+ allWindowHandles.size());
+        String winHandle1 = null;
+        for (String winHandle : allWindowHandles) {
+            System.out.println("Window handle - > " + winHandle);
+            driver.switchTo().window(winHandle);// Switch to the desired window first and then execute commands using
+            winHandle1=winHandle;
+        }
+        Thread.sleep(4000);
+        if (emailApple.isDisplayed()) {
+            Thread.sleep(2000);
+            emailApple.sendKeys(email);
+            nextAppleButton.click();
+            Thread.sleep(5000);
+            passApple.sendKeys(pass);
+            nextAppleButton.click();
+            Thread.sleep(5000);
+            continueApple.click();
+            Thread.sleep(5000);
+        }
+        driver.switchTo().window(browersActual);
+        driver.switchTo().defaultContent();
+        Thread.sleep(10000);
+    }
 
 
 

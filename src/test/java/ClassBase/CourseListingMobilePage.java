@@ -2,7 +2,6 @@ package ClassBase;
 
 
 import java.util.List;
-
 import Util.UtilityWebMobile;
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileElement;
@@ -16,10 +15,9 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 public class CourseListingMobilePage {
 
-	AppiumDriver<MobileElement> driver;
+	AppiumDriver<WebElement> driver;
 
-
-	@FindBy(css = "div[data-qa-file='CourseList']")
+	@FindBy(css = "div[data-qa-file='CourseListByType']")
 	List<WebElement> coursesList;
 
 	@FindBy(css = "button[data-qa-file='SearchHolderForm']")
@@ -31,35 +29,27 @@ public class CourseListingMobilePage {
 	@FindBy(css= "button[data-qa-file='MapZoomControl']")
 	List<WebElement> maxViewMap;
 
-	@FindBy(css = "span[data-qa-file='Courses']")
-	List<WebElement> nameCourseHeader;
-
-
-	public CourseListingMobilePage(AppiumDriver<MobileElement> driver) {
-
+	public CourseListingMobilePage(AppiumDriver<WebElement> driver) {
 		this.driver = driver;
 		PageFactory.initElements(driver, this);
 	}
-
 
 	public void verifyTheResultForDealsCourses() throws Exception {
         Thread.sleep(4000);
 		UtilityWebMobile page= new UtilityWebMobile();
 		TeeTimeListingMobilePage teeTime= new TeeTimeListingMobilePage(driver);
+		HomePageMobilePage home=new HomePageMobilePage(driver);
 		
 		if (coursesList.size() >=1) {
-			page.ScrollFinalPage(teeTime.linkSection);
+			page.ScrollFinalPage(home.footer.get(1));
 			Thread.sleep(4000);
-			page.ScrollFinalPage(teeTime.dealsOnly);
+			page.ScrollFinalPage(teeTime.nextIcon);
 			System.out.println("Size of list" + " " + coursesList.size());
-
 			if (coursesList.size() == 1) {
-
 				boolean deals = coursesList.get(0)
 						.findElement(By.cssSelector("div[data-qa-file='CourseTileInfo'] img")).getAttribute("alt").equals("Lightning Deals");
 				System.out.println("Present deals" + " " + deals);
 				Assert.assertTrue(deals);
-
 			} else {
 				for (WebElement webElement : coursesList) {
 
@@ -111,8 +101,9 @@ public class CourseListingMobilePage {
 
 	public void verifyTheData() throws InterruptedException {
 		Thread.sleep(6000);
-		Assert.assertTrue(nameCourseHeader.get(0).isDisplayed());
-		Assert.assertTrue(nameCourseHeader.get(1).isDisplayed());
+		TeeTimeListingMobilePage page= new TeeTimeListingMobilePage(driver);
+		Assert.assertTrue(page.dataCourse.isDisplayed());
+
 	}
 
 	public void selectCourseMap() throws InterruptedException {
@@ -140,6 +131,4 @@ public class CourseListingMobilePage {
 			Assert.assertTrue(messageTeeTimeEmpty.get(0).isDisplayed());
 		}
 	}
-
-
 }

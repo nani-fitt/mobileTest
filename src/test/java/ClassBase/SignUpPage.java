@@ -16,7 +16,7 @@ import java.util.List;
 
 public class SignUpPage {
 
-	AppiumDriver<MobileElement> driver;
+	AppiumDriver<WebElement> driver;
 
 
 	@FindBy(id = "create-account")
@@ -34,17 +34,8 @@ public class SignUpPage {
 	@FindBy(css = "span[data-qa-file='WelcomeToSupreme']")
 	List<WebElement> welcomeSG;
 
-	@FindBy(css = "button[data-qa-file='SignUp']")
+	@FindBy(css = "button[id='continue-with-email']")
 	 WebElement buttonEmail;
-
-	@FindBy(css = "svg[data-qa-node='UncheckedIcon']")
-	WebElement unCheck;
-
-	@FindBy(css = "svg[data-qa-node='CheckedIcon']")
-	WebElement check;
-
-	@FindBy(xpath = "//span[@class='text-sm font-thin']")
-	 WebElement signInMessage;
 
 	@FindBy(name = "firstName")
 	 WebElement firstNameField;
@@ -78,7 +69,7 @@ public class SignUpPage {
 
 
 
-	public SignUpPage(AppiumDriver<MobileElement> driver) {
+	public SignUpPage(AppiumDriver<WebElement> driver) {
 		this.driver = driver;
 		PageFactory.initElements(driver, this);
 	}
@@ -150,7 +141,7 @@ public class SignUpPage {
 	}
 
 	public void clickOnEmailSignUp() throws Exception {
-		Thread.sleep(2000);
+		Thread.sleep(4000);
 		WebDriverWait wait = new WebDriverWait(driver, 20);
 		wait.until(ExpectedConditions.elementToBeClickable(buttonEmail)).click();
 		Thread.sleep(3000);

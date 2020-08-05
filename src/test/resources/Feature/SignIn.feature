@@ -4,8 +4,9 @@ Feature: SignIN page
 
   Background:
     When Accept the cookies
-    When Click on menu header
-    And Click on Sign In button
+    When Click on my account
+    Then Select Sign In option
+
 
   @TC_01-ShowSignIn
   Scenario: Tap On Sign In option
@@ -131,11 +132,9 @@ Feature: SignIN page
     When Click on menu header
     And Click on SignOut button
 
- ## @TC_13-SignInWithApple
- ## Scenario: Sign In with apple
- ##   When Click on Profile button
- ##   And Click on Sign In button
- ##   Then Verify the message below Sign In
- ##   When Select apple option and enter credentials
- ##     | EmailApple| PassApple |
-  ##  Then Verify the user is login with social medias
+  @TC_08-SignInWithApple
+  Scenario: Sign In with apple
+    When Select Apple option and enter credentials
+      | EmailApple| PassApple |
+    Then Verify the home page is displayed
+

@@ -9,14 +9,12 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 import java.util.TimeZone;
+import java.util.concurrent.TimeUnit;
 
 import Util.UtilityWebMobile;
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileElement;
-import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.Keys;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -25,21 +23,18 @@ import org.testng.Assert;
 
 public class TeeTimeListingMobilePage {
 
-    AppiumDriver<MobileElement> driver;
+    AppiumDriver<WebElement> driver;
 
     @FindBy(css = "button[data-qa-file='StandardButton']")
     List<WebElement> searchButton;
 
-    @FindBy(css = "section[data-qa-file='Footer']")
-    WebElement linkSection;
-
     @FindBy(css = "button[data-qa-file='FiltersBar']")
     List<WebElement> sortByFiltersMap;
 
-    @FindBy(css = "p[data-qa-file='InfoCourse']")
+    @FindBy(css = "h1[data-qa-file='InfoCourse']")
     WebElement dataCourse;
 
-    @FindBy(css = "p[data-qa-file='CourseTimeSlots']")
+    @FindBy(css = "button[data-qa-file='CourseTimeSlots']")
     List<WebElement> addressCourse;
 
     @FindBy(css = "button[data-qa-file='InfoCourse']")
@@ -60,46 +55,34 @@ public class TeeTimeListingMobilePage {
     @FindBy(css = "p[data-qa-file='PriceAlertTeeTime']")
      WebElement alertIcon;
 
-    @FindBy(css = "button[data-qa-file='ListHeaderFilters']")
-    WebElement dealsOnly;
-
     @FindBy(css = "div[data-qa-file='TimeSlots']")
     List<WebElement> teeTime;
 
-    @FindBy(css = "p[class*='inline-flex pl-1 text-xs text-slate-grey leading-large quantity-players']")
+    @FindBy(css = "p[class*='inline-flex pl-1 text-xs leading-large quantity-players']")
     List<WebElement> playersList;
 
-    @FindBy(css = "p[class*='inline-flex pl-1 text-xs text-slate-grey leading-large holes-amenity']")
+    @FindBy(css = "p[class*='inline-flex pl-1 text-xs leading-large holes-amenity']")
     List<WebElement> holesList;
 
-    @FindBy(css = "p[class*='inline-flex pl-1 text-xs text-slate-grey leading-large card-name']")
-    List<WebElement> cartList;
-
-    @FindBy(css = "div[class*='inline-flex text-5 font-black text-navy tracking-hardest tee-time']")
-    List<WebElement> timeList;
-
-    @FindBy(css = "span[class*='inline-flex text-5 font-black text-navy tracking-hardest tee-starting-rate']")
-    List<WebElement> priceList;
-
-    @FindBy(css = "span[class*='flex bg-white rounded-3 border border-cloudy-blue px-2 w-fit-content text-center text-xs font-medium text-slate-grey tracking-fastened rates-available']")
-    List<WebElement> rateList;
-
-    @FindBy(css = "p[data-qa-file='TimeSlots']")
+    @FindBy(css = "p[data-qa-file='NotFoundList']")
     List<WebElement> messageTeeTimeEmpty;
 
-    @FindBy(css = "img[data-qa-file='DayNavigation']")
-    List<WebElement> nextPreviousIcon;
+    @FindBy(id = "right-arrow")
+    WebElement nextIcon;
 
-    @FindBy(css = "p[data-qa-file='LeftFilterWrapper']")
-    private WebElement filterBy;
+    @FindBy(id = "left-arrow")
+    WebElement previousIcon;
+
+    @FindBy(css = "button[data-qa-file='FiltersButton']")
+     WebElement filterBy;
 
     @FindBy(css = "p[data-qa-file='FiltersList']")
     List<WebElement> filtersAll;
 
     @FindBy(id = "date")
-    private WebElement date;
+     WebElement date;
 
-    public TeeTimeListingMobilePage(AppiumDriver<MobileElement> driver) {
+    public TeeTimeListingMobilePage(AppiumDriver<WebElement> driver) {
         this.driver = driver;
         PageFactory.initElements(driver, this);
     }
@@ -130,7 +113,7 @@ public class TeeTimeListingMobilePage {
     public void verifyNameAndAddress(String course, String addres) throws InterruptedException {
         Thread.sleep(5000);
         Assert.assertEquals(dataCourse.getText(), course);
-        Assert.assertEquals(addressCourse.get(0).getText(), addres);
+        Assert.assertEquals(addressCourse.get(1).getText(), addres);
     }
 
     public void verifyCourseInfo() throws Exception {
@@ -155,7 +138,6 @@ public class TeeTimeListingMobilePage {
     }
 
     public void verifyFavoriteIcon() throws InterruptedException {
-
         Thread.sleep(5000);
         boolean icon = favoriteIcon.isDisplayed();
         Assert.assertTrue(icon);
@@ -193,14 +175,6 @@ public class TeeTimeListingMobilePage {
         Thread.sleep(4000);
     }
 
-    public void clickOnDeals() throws Exception {
-        Thread.sleep(5000);
-        WebDriverWait wait = new WebDriverWait(driver, 50);
-        wait.until(ExpectedConditions.elementToBeClickable(dealsOnly)).click();
-        Thread.sleep(3000);
-    }
-
-
     public void clickOnGolferReviewsLink() throws Exception {
         Thread.sleep(5000);
         WebDriverWait wait = new WebDriverWait(driver, 50);
@@ -227,90 +201,55 @@ public class TeeTimeListingMobilePage {
 
     public void verifyResultForTheSearchPlayers(String players) throws Exception {
         UtilityWebMobile page = new UtilityWebMobile();
+        HomePageMobilePage home= new HomePageMobilePage(driver);
         if (teeTime.size() > 1) {
             if (players.contains("Four") || players.contains("4")) {
-                page.ScrollFinalPage(linkSection);
+                page.ScrollFinalPage(home.footer.get(1));
                 Thread.sleep(4000);
-                page.ScrollFinalPage(dealsOnly);
+                page.ScrollFinalPage(filterBy);
                 System.out.println("Size list" + " " + teeTime.size());
-
                 System.out.println("Sublist" + " " + playersList.size());
+               Assert.assertFalse(playersList.stream().anyMatch(webElement -> webElement.getText().contains("1-3") ||
+                        webElement.getText().contains("1-2")));
 
-                for (WebElement webElement : playersList) {
-                    System.out.println("Print---------------" + " " + webElement.getText());
-
-                    if (webElement.getText().equalsIgnoreCase("1-3")
-                            || webElement.getText().equalsIgnoreCase("1-2")
-                            || webElement.getText().equalsIgnoreCase("1")) {
-
-                        System.out.println("The number of players is incorrect");
-                        Assert.assertEquals(webElement.getText(), "1-4");
-                        break;
-
-                    }
-                }
             } else if (players.contains("Three") || players.contains("3")) {
-                page.ScrollFinalPage(linkSection);
+                page.ScrollFinalPage(home.footer.get(1));
                 Thread.sleep(4000);
-                page.ScrollFinalPage(dealsOnly);
+                page.ScrollFinalPage(filterBy);
                 System.out.println("Size list" + " " + teeTime.size());
-
                 System.out.println("Sublist" + " " + playersList.size());
-                for (WebElement webElement : playersList) {
+                Assert.assertFalse(playersList.stream().anyMatch(webElement -> webElement.getText().contains("1") ||
+                        webElement.getText().contains("1-2")));
 
-                    System.out.println("Print---------------" + " " + webElement.getText());
-
-                    if (webElement.getText().equalsIgnoreCase("1-2")
-                            || webElement.getText().equalsIgnoreCase("1")) {
-
-                        System.out.println("The number of players is incorrect");
-                        Assert.assertEquals(webElement.getText(), "1-3");
-                        break;
-
-                    }
-
-                }
             } else if (players.contains("Five") || players.contains("5")) {
-                page.ScrollFinalPage(linkSection);
+                page.ScrollFinalPage(home.footer.get(1));
                 Thread.sleep(4000);
-                page.ScrollFinalPage(dealsOnly);
+                page.ScrollFinalPage(filterBy);
                 System.out.println("Size list" + " " + teeTime.size());
-                for (WebElement webElement : playersList) {
 
-                    System.out.println("Print---------------" + " " + webElement.getText());
+                Assert.assertFalse(playersList.stream().anyMatch(webElement -> webElement.getText().contains("1-4") ||
+                        webElement.getText().contains("1-3") || webElement.getText().contains("1-2") ||
+                        webElement.getText().contains("1")));
 
-                    if (webElement.getText().equalsIgnoreCase("1-3")
-                            || webElement.getText().equalsIgnoreCase("1-2")
-                            || webElement.getText().equalsIgnoreCase("1-4")
-                            || webElement.getText().equalsIgnoreCase("1")) {
-
-                        System.out.println("The number of players is incorrect");
-                        Assert.assertEquals(webElement.getText(), "1-5");
-                        break;
-                    }
-                }
             } else if (players.contains("Six") || players.contains("6")) {
-                page.ScrollFinalPage(linkSection);
+                page.ScrollFinalPage(home.footer.get(1));
                 Thread.sleep(4000);
-                page.ScrollFinalPage(dealsOnly);
+                page.ScrollFinalPage(filterBy);
                 System.out.println("Size list" + " " + teeTime.size());
                 System.out.println("Sublist" + " " + playersList.size());
 
-                for (WebElement webElement : playersList) {
+               Assert.assertFalse( playersList.stream().anyMatch(webElement -> webElement.getText().contains("1-4") ||
+                        webElement.getText().contains("1-3") || webElement.getText().contains("1-2") ||
+                        webElement.getText().contains("1") || webElement.getText().contains("1-4")));
+            }
+            else if (players.contains("Two") || players.contains("2")) {
+                page.ScrollFinalPage(home.footer.get(1));
+                Thread.sleep(4000);
+                page.ScrollFinalPage(filterBy);
+                System.out.println("Size list" + " " + teeTime.size());
+                System.out.println("Sublist" + " " + playersList.size());
 
-                    System.out.println("Print---------------" + " " + webElement.getText());
-
-                    if (webElement.getText().equalsIgnoreCase("1-3")
-                            || webElement.getText().equalsIgnoreCase("1-2")
-                            || webElement.getText().equalsIgnoreCase("1-4")
-                            || webElement.getText().equalsIgnoreCase("1-5")
-                            || webElement.getText().equalsIgnoreCase("1")) {
-
-                        System.out.println("The number of players is incorrect");
-                        Assert.assertEquals(webElement.getText(), "1-6");
-                        break;
-                    }
-                }
+                Assert.assertFalse( playersList.stream().anyMatch(webElement -> webElement.getText().contains("1")));
             }
         } else
             Assert.assertEquals(messageTeeTimeEmpty.get(1).getText(),
@@ -318,68 +257,45 @@ public class TeeTimeListingMobilePage {
     }
 
     public void verifyResultForTheSearchHoles(String holes) throws Exception {
-
         UtilityWebMobile page = new UtilityWebMobile();
+        HomePageMobilePage home= new HomePageMobilePage(driver);
         if (teeTime.size() > 1) {
             if (holes.contains("9")) {
-                page.ScrollFinalPage(linkSection);
+                page.ScrollFinalPage(home.footer.get(1));
                 Thread.sleep(4000);
-                page.ScrollFinalPage(dealsOnly);
+                page.ScrollFinalPage(filterBy);
                 System.out.println("Size of the list" + " " + teeTime.size());
                 System.out.println("Sublist" + " " + holesList.size());
+                Assert.assertFalse(holesList.stream().anyMatch(webElement -> webElement.getText().contains("18")));
 
-                for (WebElement webElement : holesList) {
-
-                    System.out.println("Element -------------" + " " + webElement.getText());
-
-                    if (webElement.getText().contains("18")) {
-
-                        System.out.println("The number of players is incorrect");
-                        Assert.assertEquals(webElement.getText(), "9");
-                        break;
-
-                    }
-
-                }
             } else {
                 if (holes.contains("18")) {
-                    page.ScrollFinalPage(linkSection);
+                    page.ScrollFinalPage(home.footer.get(1));
                     Thread.sleep(4000);
-                    page.ScrollFinalPage(dealsOnly);
+                    page.ScrollFinalPage(filterBy);
                     System.out.println("Size of the list" + " " + teeTime.size());
                     System.out.println("Sublist" + " " + holesList.size());
-
-                    for (WebElement webElement : holesList) {
-
-                        System.out.println("Element -------------" + " " + webElement.getText());
-
-                        if (webElement.getText().contains("9")) {
-
-                            System.out.println("The number of players is incorrect");
-                            Assert.assertEquals(webElement.getText(), "18");
-                            break;
-                        }
-                    }
+                    Assert.assertFalse(holesList.stream().anyMatch(webElement -> webElement.getText().contains("9")));
                 }
             }
-        } else
+        }
+        else
             Assert.assertEquals(messageTeeTimeEmpty.get(1).getText(),
                     "There are currently no results for your search. Try adjusting your filters, then search again.");
-
     }
 
     public void verifyNextIconIsPresent() throws InterruptedException {
         Thread.sleep(5000);
-        WebDriverWait wait = new WebDriverWait(driver, 50);
-        wait.until(ExpectedConditions.visibilityOfAllElements(nextPreviousIcon.get(2)));
-        nextPreviousIcon.get(2).isDisplayed();
+        driver.manage().timeouts().implicitlyWait(80, TimeUnit.SECONDS);
+        Assert.assertTrue(nextIcon.isDisplayed());
+
     }
 
     public void clickOnNextIcon() throws Exception {
         Thread.sleep(5000);
         String check = date.getText();
         WebDriverWait wait = new WebDriverWait(driver, 50);
-        wait.until(ExpectedConditions.elementToBeClickable(nextPreviousIcon.get(2))).click();
+        wait.until(ExpectedConditions.elementToBeClickable(nextIcon)).click();
         Thread.sleep(2000);
         String check1 = date.getText();
         Assert.assertNotEquals(check, check1);
@@ -411,7 +327,7 @@ public class TeeTimeListingMobilePage {
 
         if (mesActual.contains(compare)) {
             WebDriverWait wait = new WebDriverWait(driver, 10);
-            wait.until(ExpectedConditions.elementToBeClickable(nextPreviousIcon.get(0))).click();
+            wait.until(ExpectedConditions.elementToBeClickable(previousIcon)).click();
             Thread.sleep(2000);
             System.out.println("Entro");
             String verifydate = date.getText();
@@ -419,7 +335,7 @@ public class TeeTimeListingMobilePage {
 
         }
         WebDriverWait wait = new WebDriverWait(driver, 10);
-        wait.until(ExpectedConditions.elementToBeClickable(nextPreviousIcon.get(0))).click();
+        wait.until(ExpectedConditions.elementToBeClickable(previousIcon)).click();
         Thread.sleep(2000);
 
     }
@@ -427,8 +343,8 @@ public class TeeTimeListingMobilePage {
     public void verifyPreviousIconIsPresent() throws InterruptedException {
         Thread.sleep(5000);
         WebDriverWait wait = new WebDriverWait(driver, 80);
-        wait.until(ExpectedConditions.visibilityOfAllElements(nextPreviousIcon.get(0)));
-        nextPreviousIcon.get(0).isDisplayed();
+        wait.until(ExpectedConditions.visibilityOfAllElements(previousIcon));
+        previousIcon.isDisplayed();
     }
 
 
@@ -442,40 +358,6 @@ public class TeeTimeListingMobilePage {
         Assert.assertEquals(filtersAll.get(4).getText(), "Holes");
         Assert.assertEquals(filtersAll.get(5).getText(), "Cart");
         Assert.assertEquals(filtersAll.get(6).getText(), "Rate Type");
-    }
-
-    public void verifyResultForDeals() throws Exception {
-        UtilityWebMobile page = new UtilityWebMobile();
-        if (teeTime.size() > 1) {
-            page.ScrollFinalPage(linkSection);
-            Thread.sleep(4000);
-            page.ScrollFinalPage(dealsOnly);
-            System.out.println("Size of the list" + " " + teeTime.size());
-
-            if (teeTime.size() == 1) {
-
-                String deals = teeTime.get(0)
-                        .findElements(By.cssSelector("p[class='pr-sm text-xs text-dark-grey leading-large tracking-fastened']"))
-                        .get(0).getText();
-                System.out.println("Present deals" + " " + deals);
-                Assert.assertEquals(deals, "Deal");
-
-            } else {
-                for (WebElement webElement : teeTime) {
-
-                    String deals = webElement
-                            .findElements(
-                                    By.cssSelector("p[class='pr-sm text-xs text-dark-grey leading-large tracking-fastened']"))
-                            .get(0).getText();
-                    System.out.println("Present deals" + " " + deals);
-                    Assert.assertEquals(deals, "Deal");
-                }
-            }
-
-        } else
-            Assert.assertEquals(messageTeeTimeEmpty.get(1).getText(),
-                    "There are currently no results for your search. Try adjusting your filters, then search again.");
-
     }
 
     public void clickBackToCourses() throws Exception {

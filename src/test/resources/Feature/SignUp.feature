@@ -5,8 +5,10 @@ Feature: SignUp page
 
   Background:
     When Accept the cookies
-    When Click on menu header
-    And Click on Create Account Link
+    When Click on my account
+    Then Select Sign In option
+    Then Select SignUp link
+    Then Check the Sign Up popup is present
 
   @TC_01-ShowSignUp
   Scenario: Tap On Sign Up option
@@ -37,21 +39,21 @@ Feature: SignUp page
 
 
   @PostDeployValidation @TC_03-ValidationForPassword
-  Scenario: Check password validation
+  Scenario Outline: Check password validation
     Then Click on enter email field
-    When Enter the data
-      | Firstname | Lastname | ZipCode | Email | Password    |
-      | FirstName | LastName | ZipCod  | Email | Invalidpass |
+    When Enter the data "<firstname>" "<lastname>" "<zipcode>" "<email>" "<password>"
     Then Verify log for the characteres
     And Verify at least one uppercase and lowercase letter
     And Verify at least one number
 
+    Examples:
+      | firstname | lastname | zipcode | email | password  |
+      | Firstname | Lastname | zipcode | email | passwordI |
+
   @PostDeployValidation @TC_04-MadeASignUpEmailUsedInOtherAccount
-  Scenario: Sign Up using another account
+  Scenario Outline: Sign Up using another account
     Then Click on enter email field
-    And Enter the data exist
-      | Firstname | Lastname | ZipCode | Email     | Password  |
-      | Name      | LastName | ZipCod  | EmailUsed | pass      |
+    When Enter the data invalid "<firstname>" "<lastname>" "<zipcode>" "<email>" "<password>"
     Then Verify the message for account used is present
     Then Click on Sign In link since sign up screen
     Then Verify the message below Sign In
@@ -61,7 +63,9 @@ Feature: SignUp page
       | PassCorrectC |
     And Click on Login button
     Then Verify the current location is displayed
-
+    Examples:
+      | firstname | lastname | zipcode | email     | password  |
+      | Firstname | Lastname | zipcode | emailUsed | password  |
 
   @TC_05-SignInWithFacebook
   Scenario: Sign In with Facebook
@@ -104,12 +108,10 @@ Feature: SignUp page
 
 
   @PostDeployValidation @TC_10-VerifyMessageForEmptyField
-  Scenario: Verify message for empty field
+  Scenario Outline: Verify message for empty field
     Then Verify the message below Sign Up
     And Click on enter email field
-    And Enter the data
-      | Firstname       | Lastname | ZipCode           | Email       | Password   |
-      | NameEmptySignUp | LastName | ZipCodEmptySignUp | EmailEmpty  | passInvalid|
+    When Enter the data invalid "<firstname>" "<lastname>" "<zipcode>" "<email>" "<password>"
     Then Verify message for field empty
     Then Verify the Create Account button is disable
     Then Click on Sign In link since sign up screen
@@ -117,6 +119,7 @@ Feature: SignUp page
     And Verify email is present
     And Verify password is present
     And Verify Keep me login is present
-
-
+    Examples:
+      | firstname      | lastname | zipcode           | email      | password |
+      | NameEmptySignUp| LastName | ZipCodEmptySignUp | EmailEmpty | passwordI|
 

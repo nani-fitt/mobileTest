@@ -7,7 +7,7 @@ import java.util.Properties;
 
 public class PropertyHelper {
 	
-		public static  Properties loadData() {
+		public static Properties loadData() {
 			String environment ="staging";
 			Properties p = new Properties();
 			try {
@@ -16,7 +16,7 @@ public class PropertyHelper {
 					p.load(f);
 				}
 				else if (environment.equalsIgnoreCase("preprod")) {
-					FileInputStream f = new FileInputStream("data/TestDataPreProd.properties");
+					FileInputStream f = new FileInputStream("./src/property/TestDataPreProd.properties");
 					p.load(f);
 				}
 			} catch (FileNotFoundException e1) {
