@@ -1,0 +1,167 @@
+[
+  {
+    "line": 3,
+    "elements": [
+      {
+        "line": 5,
+        "name": "",
+        "description": "",
+        "type": "background",
+        "keyword": "Background",
+        "steps": [
+          {
+            "result": {
+              "duration": 5537790500,
+              "status": "passed"
+            },
+            "line": 6,
+            "name": "Accept the cookies",
+            "match": {
+              "location": "HomePageStep.acceptTheCookies()"
+            },
+            "keyword": "When "
+          },
+          {
+            "result": {
+              "duration": 8407165700,
+              "status": "passed"
+            },
+            "line": 7,
+            "name": "Click on my account",
+            "match": {
+              "location": "HomePageStep.clickOnMyAccount()"
+            },
+            "keyword": "When "
+          },
+          {
+            "result": {
+              "duration": 8800893500,
+              "status": "passed"
+            },
+            "line": 8,
+            "name": "Select Sign In option",
+            "match": {
+              "location": "HomePageStep.selectSignInOption()"
+            },
+            "keyword": "Then "
+          }
+        ]
+      },
+      {
+        "start_timestamp": "2020-08-03T18:49:03.550Z",
+        "before": [
+          {
+            "result": {
+              "duration": 27756717700,
+              "status": "passed"
+            },
+            "match": {
+              "location": "ServiceHooks.initializeTest()"
+            }
+          }
+        ],
+        "line": 12,
+        "name": "Tap On Sign In option",
+        "description": "",
+        "id": "signin-page;tap-on-sign-in-option",
+        "after": [
+          {
+            "result": {
+              "duration": 672888200,
+              "status": "passed"
+            },
+            "match": {
+              "location": "ServiceHooks.endTest(Scenario)"
+            }
+          }
+        ],
+        "type": "scenario",
+        "keyword": "Scenario",
+        "steps": [
+          {
+            "result": {
+              "duration": 5527464700,
+              "status": "passed"
+            },
+            "line": 13,
+            "name": "Verify the message below Sign In",
+            "match": {
+              "location": "SignInSteps.verify_the_message_below_Sign_In()"
+            },
+            "keyword": "Then "
+          },
+          {
+            "result": {
+              "duration": 5187188600,
+              "status": "passed"
+            },
+            "line": 14,
+            "name": "Verify email is present",
+            "match": {
+              "location": "SignInSteps.verify_email_is_present()"
+            },
+            "keyword": "And "
+          },
+          {
+            "result": {
+              "duration": 4189465700,
+              "status": "passed"
+            },
+            "line": 15,
+            "name": "Verify password is present",
+            "match": {
+              "location": "SignInSteps.verify_password_is_present()"
+            },
+            "keyword": "And "
+          },
+          {
+            "result": {
+              "duration": 8248941900,
+              "status": "passed"
+            },
+            "line": 16,
+            "name": "Verify Keep me login is present",
+            "match": {
+              "location": "SignInSteps.verifyKeepMeLoginIsPresent()"
+            },
+            "keyword": "And "
+          }
+        ],
+        "tags": [
+          {
+            "name": "@PostDeployValidationStaging"
+          },
+          {
+            "name": "@SignIn"
+          },
+          {
+            "name": "@TC_01-ShowSignIn"
+          }
+        ]
+      }
+    ],
+    "name": "SignIN page",
+    "description": "",
+    "id": "signin-page",
+    "keyword": "Feature",
+    "uri": "file:src/test/resources/Feature/SignIn.feature",
+    "tags": [
+      {
+        "name": "@PostDeployValidationStaging",
+        "type": "Tag",
+        "location": {
+          "line": 1,
+          "column": 1
+        }
+      },
+      {
+        "name": "@SignIn",
+        "type": "Tag",
+        "location": {
+          "line": 2,
+          "column": 1
+        }
+      }
+    ]
+  }
+]
