@@ -6,9 +6,10 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="webViewWeb" />
-        <module name="webViewWebAndroid" />
         <module name="webMobile_automation" />
+        <module name="webViewWebAndroid" />
+        <module name="webViewWeb" />
+        <module name="mobileWebTest" />
       </profile>
     </annotationProcessing>
   </component>
