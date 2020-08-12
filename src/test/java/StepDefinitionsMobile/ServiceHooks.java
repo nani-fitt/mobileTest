@@ -80,6 +80,7 @@ public class ServiceHooks {
 		}
 		
 		 TestBase.driver.quit();
+		 TestBase.eyes.abortIfNotClosed();
 		 
 	}
 	

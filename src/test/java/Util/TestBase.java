@@ -1,12 +1,17 @@
 package Util;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Properties;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
+import com.applitools.eyes.selenium.Eyes;
 import com.google.common.collect.ImmutableMap;
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileBy;
@@ -23,12 +28,13 @@ import org.openqa.selenium.remote.DesiredCapabilities;
 
 public class TestBase {
     public static AppiumDriver<WebElement> driver;
+    public static Eyes eyes;
     public static final String USERNAME = "codigodelsur1";
     public static final String AUTOMATE_KEY = "Nxj84iaayiTZ74XAxudv";
     public static final String url = "https://" + USERNAME + ":" + AUTOMATE_KEY + "@hub-cloud.browserstack.com/wd/hub";
 
 
-    public void selectBrowser(String browser) throws MalformedURLException, InterruptedException {
+    public void selectBrowser(String browser) throws IOException, InterruptedException {
 
         if (browser.equals("Chrome")) {
             //Log.info("OPEN CHROME BROWSER FOR ANDROID EMULATOR");
@@ -43,6 +49,7 @@ public class TestBase {
             capabilities.setCapability("chromedriverExecutable","/Users/esneyddisguerrerodurand/Downloads/chromedriver");
             URL url = new URL("http://127.0.0.1:4723/wd/hub");
             driver = new AndroidDriver<>(url, capabilities);
+            iniciateEyes();
             driver.manage().timeouts().implicitlyWait(9000, TimeUnit.SECONDS);
             try {
                 driver.get("https://dev@supremegolf.com:2q6T9P*4@staging.app.supremegolf.com");
@@ -77,6 +84,7 @@ public class TestBase {
             capabilities.setCapability("safariAllowPopups", true);
             URL url = new URL("http://127.0.0.1:4723/wd/hub");
             driver = new IOSDriver<>(url, capabilities);
+            iniciateEyes();
             driver.manage().timeouts().implicitlyWait(9000, TimeUnit.SECONDS);
             try {
                 driver.get("https://astaging.app.supremegolf.com");
@@ -95,6 +103,7 @@ public class TestBase {
             ChromeOptions chromeOptions = new ChromeOptions();
             chromeOptions.setExperimentalOption("mobileEmulation", mobileEmulation);
             WebDriver driver = new ChromeDriver(chromeOptions);
+            iniciateEyes();
             driver.manage().timeouts().implicitlyWait(9000, TimeUnit.SECONDS);
             try {
                 driver.get("https://dev@supremegolf.com:2q6T9P*4@staging.app.supremegolf.com");
@@ -117,6 +126,7 @@ public class TestBase {
             capabilities.setCapability("chromedriverExecutable","C:\\Users\\HP\\Downloads\\chromedriver_win32\\chromedriver.exe");
             URL url = new URL("http://127.0.0.1:4723/wd/hub");
             driver = new AndroidDriver<>(url, capabilities);
+            iniciateEyes();
             driver.manage().timeouts().implicitlyWait(9000, TimeUnit.SECONDS);
             try {
                 driver.get("https://dev@supremegolf.com:2q6T9P*4@staging.app.supremegolf.com");
@@ -136,6 +146,23 @@ public class TestBase {
                 System.out.println("WebDriverException occured");
             }
         }
+    }
+
+    private static void iniciateEyes() throws IOException {
+        eyes= new Eyes();
+        Properties prop= new Properties();
+        FileInputStream file= new FileInputStream("./src/property/browers.properties");
+        prop.load(file);
+        String key= prop.getProperty("applitools.api.key");
+        eyes.setApiKey(key);
+    }
+
+    public void validateWindows()
+    {
+        eyes.open(driver, "supremegolf",
+                Thread.currentThread().getStackTrace()[2].getMethodName());
+        eyes.checkWindow();
+        eyes.close();
     }
 
 }

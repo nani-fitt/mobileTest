@@ -10,7 +10,7 @@ import io.cucumber.testng.TestNGCucumberRunner;
 
 @CucumberOptions(features = "./src/test/resources", glue = {"StepDefinitionsMobile"}
         , plugin = {"pretty","html:target/cucumber-report-html","json:target/cucumber.json" }
-        , tags = {"@TC_6CheckoutBookingWithoutSignIn"}) // or
+        , tags = {"@TC-02-SuggestionCourse"}) // or
 																													// condition
 
 public class RunnerMobile {

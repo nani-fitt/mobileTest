@@ -25,6 +25,14 @@
 			<version>3.141.59</version>
 		</dependency>
 
+		<!-- https://mvnrepository.com/artifact/com.applitools/eyes-selenium-java3 -->
+		<dependency>
+			<groupId>com.applitools</groupId>
+			<artifactId>eyes-selenium-java3</artifactId>
+			<version>3.172.1</version>
+		</dependency>
+
+
 		<dependency>
 			<groupId>org.apache.logging.log4j</groupId>
 			<artifactId>log4j-core</artifactId>

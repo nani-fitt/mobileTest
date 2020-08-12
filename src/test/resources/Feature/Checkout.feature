@@ -6,7 +6,7 @@ Feature: Checkout Screen
     When Accept the cookies
 
 
-  @TC_1CheckoutScreenTest
+  @TC_1CheckoutScreen
   Scenario Outline: Checkout Screen
     When Click on my account
     Then Select Sign In option

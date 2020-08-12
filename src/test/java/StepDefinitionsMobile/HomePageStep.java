@@ -21,6 +21,7 @@ public class HomePageStep extends TestBase {
 	public void verifyThatMenuHeaderIsDisplayed() throws InterruptedException {
 	//	Log.info("Verify menu");
 	    page.verifyMenuHeader();
+
 	}
 
 	@Then("Verify that Search component is displayed")
@@ -45,6 +46,7 @@ public class HomePageStep extends TestBase {
 	@Then("Verify the menu options are present")
 	public void verifyTheMenuOptionsArePresent() throws InterruptedException {
 		page.verifyOptionsMenu();
+		validateWindows();
 	}
 
 	@When("Click on my account")

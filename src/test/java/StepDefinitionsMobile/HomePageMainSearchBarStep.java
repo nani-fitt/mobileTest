@@ -52,6 +52,7 @@ public class HomePageMainSearchBarStep extends TestBase {
 		List<String> data = dataTable.asList();
 		String auto= p.getProperty(data.get(0));
 		page.autoSuggestion(auto);
+		validateWindows();
 	}
 
 	@When("Enter a city in the search field")

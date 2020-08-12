@@ -105,7 +105,7 @@ public class HomePageMobilePage {
     }
 
     public void verifyOptionsMenu() throws InterruptedException {
-        Thread.sleep(10000);
+        Thread.sleep(5000);
         softAssert.assertEquals(menuOptions.get(2).getText(), "Home");
         softAssert.assertEquals(explore.get(1).getText(), "Explore >");
         softAssert.assertEquals(giftcard.getText(), "Gift Cards");

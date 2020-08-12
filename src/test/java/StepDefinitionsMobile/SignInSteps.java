@@ -102,6 +102,7 @@ public class SignInSteps extends TestBase {
 		Properties p = PropertyHelper.loadData();
 		String passIncorrect = p.getProperty(course.get(0));
 		page.passINCorrect(passIncorrect);
+		validateWindows();
 	}
 
 	@When("Click on Login button")
