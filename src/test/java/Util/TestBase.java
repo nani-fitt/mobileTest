@@ -29,8 +29,8 @@ import org.openqa.selenium.remote.DesiredCapabilities;
 public class TestBase {
     public static AppiumDriver<WebElement> driver;
     public static Eyes eyes;
-    public static final String USERNAME = "codigodelsur1";
-    public static final String AUTOMATE_KEY = "Nxj84iaayiTZ74XAxudv";
+    public static final String USERNAME = "test";
+    public static final String AUTOMATE_KEY = "test";
     public static final String url = "https://" + USERNAME + ":" + AUTOMATE_KEY + "@hub-cloud.browserstack.com/wd/hub";
 
 
@@ -129,7 +129,7 @@ public class TestBase {
             iniciateEyes();
             driver.manage().timeouts().implicitlyWait(9000, TimeUnit.SECONDS);
             try {
-                driver.get("https://dev@supremegolf.com:2q6T9P*4@staging.app.supremegolf.com");
+                driver.get("poner app");
                 String webContext = driver.getContext();
                 Set<String> contexts = driver.getContextHandles();
                 for (String context : contexts) {
@@ -159,7 +159,7 @@ public class TestBase {
 
     public void validateWindows()
     {
-        eyes.open(driver, "supremegolf",
+        eyes.open(driver, "test",
                 Thread.currentThread().getStackTrace()[2].getMethodName());
         eyes.checkWindow();
         eyes.close();
